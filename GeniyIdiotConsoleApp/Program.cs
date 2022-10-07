@@ -5,11 +5,10 @@
         while (true)
         {
             Console.WriteLine("Здравствуйте! Как Вас зовут?");
-            var userName = Console.ReadLine();
+            var userName = CheckUserName(Console.ReadLine());
             var user = new User (userName);
             var questions = QuestionsStorage.GetAll();
             var countQuestions = questions.Count;
-
 
             var random = new Random();
 
@@ -56,6 +55,23 @@
             if (userChoice == false)
                 break;
         }
+    }
+
+    static string CheckUserName(string userName)
+    {
+        while (true)
+        {
+            var correctUserName = userName.Contains('#');
+            if (correctUserName)
+            {
+                Console.WriteLine("Имя не должно содержать символ '#'!");
+                userName = Console.ReadLine();
+            }
+            else
+            {
+                return userName;
+            }
+        }       
     }
 
     static void RemoveQuestion()
