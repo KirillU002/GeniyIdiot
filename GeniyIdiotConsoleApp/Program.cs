@@ -1,4 +1,4 @@
-﻿using GeniyIdiotConsoleApp;
+﻿using GeniyIdiot.Common;
 
 class Programm
 {
@@ -7,8 +7,7 @@ class Programm
         while (true)
         {
             Console.WriteLine("Здравствуйте! Как Вас зовут?");
-            var userName = CheckUserName(Console.ReadLine());
-            var user = new User (userName);
+            var user = new User (CheckUserName(Console.ReadLine()));
 
             var questions = QuestionsStorage.GetAll();
             var countQuestions = questions.Count;
@@ -33,13 +32,15 @@ class Programm
             Console.WriteLine("Количество правильных ответов: "+ user.CountRightAnswers);
 
             user.Diagnose = DiagnoseCalculator.Calculate(countQuestions, user.CountRightAnswers);
-            Console.WriteLine(userName+", Ваш диагноз: "+ user.Diagnose);
+            Console.WriteLine(user.Name +", Ваш диагноз: "+ user.Diagnose);
 
             UserResultStorage.Save(user);
 
             var userChoice = GetUserShoice("Хотите посмотреть предыдущие результаты игры?");
             if (userChoice)
+            {
                 ShowUserResults();
+            }
 
             userChoice = GetUserShoice("Хотите добавить новый вопрос?");
             if (userChoice)
@@ -55,60 +56,11 @@ class Programm
 
             userChoice = GetUserShoice("Хотите начать сначала?");
             if (userChoice == false)
+            {
                 break;
-        }
-    }
-
-    static string CheckUserName(string userName)
-    {
-        while (true)
-        {
-            var correctUserName = userName.Contains('#');
-            if (correctUserName)
-            {
-                Console.WriteLine("Имя не должно содержать символ '#'!");
-                userName = Console.ReadLine();
             }
-            else
-            {
-                return userName;
-            }
-        }       
-    }
-
-    static void RemoveQuestion()
-    {
-        Console.WriteLine("Введите номер удаляемого вопроса: ");
-        var questions = QuestionsStorage.GetAll();
-
-        for (int i = 0; i < questions.Count; i++)
-        {
-            Console.WriteLine((i+1)+". "+ questions[i].Text);
         }
-
-        var removeQuestionNumber = GetNumber();
-        while (removeQuestionNumber < 1 || removeQuestionNumber > questions.Count)
-        {
-            Console.WriteLine("Введите число от 1 до " + questions.Count);
-            removeQuestionNumber = GetNumber();
-        }
-
-        var removeQuestion = questions[removeQuestionNumber - 1];
-        QuestionsStorage.Remove(removeQuestion);
     }
-
-    static void AddNewQuestion()
-    {
-        Console.WriteLine("Введите текст вопроса: ");
-        var text = Console.ReadLine();
-        Console.WriteLine("Введите ответ вопроса");
-        var answer = GetNumber();
-
-        var newQuestion = new Question(text, answer);
-
-        QuestionsStorage.Add(newQuestion);
-    }
-
     static int GetNumber()
     {
         while (true)
@@ -127,7 +79,53 @@ class Programm
             }
         }
     }
+    static void RemoveQuestion()
+    {
+        Console.WriteLine("Введите номер удаляемого вопроса: ");
+        var questions = QuestionsStorage.GetAll();
 
+        for (int i = 0; i < questions.Count; i++)
+        {
+            Console.WriteLine((i + 1) + ". " + questions[i].Text);
+        }
+
+        var removeQuestionNumber = GetNumber();
+        while (removeQuestionNumber < 1 || removeQuestionNumber > questions.Count)
+        {
+            Console.WriteLine("Введите число от 1 до " + questions.Count);
+            removeQuestionNumber = GetNumber();
+        }
+
+        var removeQuestion = questions[removeQuestionNumber - 1];
+        QuestionsStorage.Remove(removeQuestion);
+    }
+    static void AddNewQuestion()
+    {
+        Console.WriteLine("Введите текст вопроса: ");
+        var text = Console.ReadLine();
+        Console.WriteLine("Введите ответ вопроса");
+        var answer = GetNumber();
+
+        var newQuestion = new Question(text, answer);
+
+        QuestionsStorage.Add(newQuestion);
+    }
+    static string CheckUserName(string userName)
+    {
+        while (true)
+        {
+            var correctUserName = userName.Contains('#');
+            if (correctUserName)
+            {
+                Console.WriteLine("Имя не должно содержать символ '#'!");
+                userName = Console.ReadLine();
+            }
+            else
+            {
+                return userName;
+            }
+        }
+    }
     static void ShowUserResults()
     {
         var result = UserResultStorage.GetUserResults();
@@ -136,9 +134,8 @@ class Programm
         foreach (var user in result)
         {
             Console.WriteLine("{0,-20}{1,20}{2,15}", user.Name, user.CountRightAnswers, user.Diagnose);
-        }           
-    }    
-
+        }
+    }
     static bool GetUserShoice(string massege)
     {
         while (true)
@@ -146,9 +143,9 @@ class Programm
             Console.WriteLine(massege + "Введите: Да или Нет");
             var userInput = Console.ReadLine().ToLower();
 
-            if(userInput == "нет")
+            if (userInput == "нет")
                 return false;
-            if(userInput == "да")
+            if (userInput == "да")
                 return true;
         }
     }

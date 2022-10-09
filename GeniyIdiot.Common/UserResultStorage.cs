@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace GeniyIdiot.Common
+{
+    public class UserResultStorage
+    {
+        public static void Save(User user)
+        {
+            var value = $"{user.Name}#{user.CountRightAnswers}#{user.Diagnose}";
+            FileProvider.Append("userResults.txt", value);
+        }
+
+        public static List<User> GetUserResults()
+        {
+            var value = FileProvider.GetValue("userResults.txt");
+            var lines = value.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var result = new List<User>();
+
+            foreach (var line in lines)
+            {
+                var values = line.Split('#');
+                var name = values[0];
+                var countRightAnswers = Convert.ToInt32(values[1]);
+                var diagnose = values[2];
+
+                var user = new User(name);
+                user.CountRightAnswers = countRightAnswers;
+                user.Diagnose = diagnose;
+
+                result.Add(user);
+            }
+            return result;
+        }
+    }
+}

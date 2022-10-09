@@ -1,4 +1,8 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
+namespace GeniyIdiot.Common
+{ 
 public class QuestionsStorage
 {
     public static List<Question> GetAll()
@@ -64,4 +68,5 @@ public class QuestionsStorage
         FileProvider.Clear("questions.txt");
         SaveQuestions(question);
     }
+}
 }
