@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 
-
 namespace GeniyIdiotWindowsFormsApp
 {
     public partial class mainForm : Form
@@ -13,7 +12,7 @@ namespace GeniyIdiotWindowsFormsApp
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-            var questions = QuestionsStorage.GetAll();
+            //var questions = QuestionsStorage.GetAll();
         }
     }
 }

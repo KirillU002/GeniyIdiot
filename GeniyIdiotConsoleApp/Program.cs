@@ -1,4 +1,6 @@
-﻿class Programm
+﻿using GeniyIdiotConsoleApp;
+
+class Programm
 {
     static void Main (string [] args)
     {
@@ -29,10 +31,9 @@
             }
 
             Console.WriteLine("Количество правильных ответов: "+ user.CountRightAnswers);
-            var diagnose = CalculateDiagnose(countQuestions, user.CountRightAnswers);
-            user.Diagnose = diagnose;
-            var diagnoses = GetDiagnoses();
-            Console.WriteLine(userName+", Ваш диагноз: "+ diagnose);
+
+            user.Diagnose = DiagnoseCalculator.Calculate(countQuestions, user.CountRightAnswers);
+            Console.WriteLine(userName+", Ваш диагноз: "+ user.Diagnose);
 
             UserResultStorage.Save(user);
 
@@ -138,15 +139,6 @@
         }           
     }    
 
-    static string CalculateDiagnose(int countQuestions, int countRightAnswers)
-    {
-        var diagnoses = GetDiagnoses();
-
-        var prcentRightAnswers = countRightAnswers * 100 / countQuestions;
-
-        return diagnoses[prcentRightAnswers / 20];
-    }
-
     static bool GetUserShoice(string massege)
     {
         while (true)
@@ -159,17 +151,5 @@
             if(userInput == "да")
                 return true;
         }
-    }
-
-    static string[] GetDiagnoses()
-    {
-        var diagnoses = new string[6];
-        diagnoses[0] = "кретин";
-        diagnoses[1] = "идиот";
-        diagnoses[2] = "дурак";
-        diagnoses[3] = "нормальный";
-        diagnoses[4] = "талант";
-        diagnoses[5] = "гений";
-        return diagnoses;
     }
 }

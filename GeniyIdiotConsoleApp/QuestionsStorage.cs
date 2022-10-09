@@ -1,4 +1,5 @@
-﻿public class QuestionsStorage
+﻿
+public class QuestionsStorage
 {
     public static List<Question> GetAll()
     {
