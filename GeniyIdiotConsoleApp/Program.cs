@@ -7,6 +7,7 @@
             Console.WriteLine("Здравствуйте! Как Вас зовут?");
             var userName = CheckUserName(Console.ReadLine());
             var user = new User (userName);
+
             var questions = QuestionsStorage.GetAll();
             var countQuestions = questions.Count;
 
