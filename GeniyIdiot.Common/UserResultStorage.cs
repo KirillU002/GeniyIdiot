@@ -1,36 +1,33 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace GeniyIdiot.Common
 {
     public class UserResultStorage
     {
-        public static void Save(User user)
+        private static readonly string Path = "userResults.json";
+        public static void Append(User user)
         {
-            var value = $"{user.Name}#{user.CountRightAnswers}#{user.Diagnose}";
-            FileProvider.Append("userResults.txt", value);
+            var usersResults = GetAll();
+            usersResults.Add(user);
+            Save(usersResults);
         }
 
-        public static List<User> GetUserResults()
+        public static List<User> GetAll()
         {
-            var value = FileProvider.GetValue("userResults.txt");
-            var lines = value.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            var result = new List<User>();
-
-            foreach (var line in lines)
+            if (!FileProvider.Exists(Path))
             {
-                var values = line.Split('#');
-                var name = values[0];
-                var countRightAnswers = Convert.ToInt32(values[1]);
-                var diagnose = values[2];
-
-                var user = new User(name);
-                user.CountRightAnswers = countRightAnswers;
-                user.Diagnose = diagnose;
-
-                result.Add(user);
+                return new List<User>();
             }
-            return result;
+            var fileData = FileProvider.GetValue(Path);
+            var userResults = JsonConvert.DeserializeObject<List<User>>(fileData);
+            return userResults;
+        }
+
+        static void Save(List<User> usersResults)
+        {
+            var jsonData = JsonConvert.SerializeObject(usersResults, Formatting.Indented);
+            FileProvider.Replace(Path, jsonData);
         }
     }
 }

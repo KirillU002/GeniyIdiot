@@ -27,6 +27,7 @@ namespace GeniyIdiotWinFormsApp
             questionTextLabel.Text = currentQuestion.Text;
 
             questionNumberLabel.Text = game.GetQuestionNumberText();
+            userAnswerTextBox.Text = null;
         }
 
         private void nextButton_Click(object sender, EventArgs e)

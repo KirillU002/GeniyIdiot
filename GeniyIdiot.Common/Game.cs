@@ -56,7 +56,7 @@ namespace GeniyIdiot.Common
         {
             var diagnose = DiagnoseCalculator.Calculate(countQuestions, user.CountRightAnswers);
             user.Diagnose = diagnose;
-            UserResultStorage.Save(user);
+            UserResultStorage.Append(user);
 
             return user.Name + ", Ваш диагноз: " + user.Diagnose;
         }

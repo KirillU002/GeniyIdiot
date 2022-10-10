@@ -11,7 +11,7 @@ namespace GeniyIdiotWinFormsApp
 
         private void ResultsForm_Load(object sender, EventArgs e)
         {
-            var results = UserResultStorage.GetUserResults();
+            var results = UserResultStorage.GetAll();
 
             foreach (var result in results)
             {

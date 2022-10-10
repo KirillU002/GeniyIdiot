@@ -109,7 +109,7 @@ class Programm
     }
     static void ShowUserResults()
     {
-        var result = UserResultStorage.GetUserResults();
+        var result = UserResultStorage.GetAll();
 
         Console.WriteLine("{0,-20}{1,20}{2,10}", "Имя", "Кол-во правильных ответов", "Диагноз");
         foreach (var user in result)

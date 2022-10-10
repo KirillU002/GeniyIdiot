@@ -5,13 +5,14 @@ namespace GeniyIdiot.Common
 { 
 public class QuestionsStorage
 {
-    public static List<Question> GetAll()
+        private static readonly string Path = "questions.txt";
+        public static List<Question> GetAll()
     {
         var questions = new List<Question>();
 
-        if (FileProvider.Exists("questions.txt"))
+        if (FileProvider.Exists(Path))
         {
-            var value = FileProvider.GetValue("questions.txt");
+            var value = FileProvider.GetValue(Path);
             var lines = value.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var line in lines)
@@ -25,7 +26,6 @@ public class QuestionsStorage
                 questions.Add(question);
             }
         }
-
         else
         {
             questions.Add(new Question("Сколько будет 2+2*2?", 6));
@@ -50,7 +50,7 @@ public class QuestionsStorage
     public static void Add(Question newQuestion)
     {
         var value = $"{newQuestion.Text}#{newQuestion.Answer}";
-        FileProvider.Append("questions.txt", value);
+        FileProvider.Append(Path, value);
     }
 
     public static void Remove(Question removeQuestion)
@@ -65,7 +65,7 @@ public class QuestionsStorage
             }
         }
         question.Remove(removeQuestion);
-        FileProvider.Clear("questions.txt");
+        FileProvider.Clear(Path);
         SaveQuestions(question);
     }
 }
