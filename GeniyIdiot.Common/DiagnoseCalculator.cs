@@ -12,9 +12,9 @@ namespace GeniyIdiot.Common
         {
             var diagnoses = GetDiagnoses();
 
-            var prcentRightAnswers = countRightAnswers * 100 / countQuestions;
+            var percentRightAnswers = countRightAnswers * 100 / countQuestions;
 
-            return diagnoses[prcentRightAnswers / 20];
+            return diagnoses[percentRightAnswers / 20];
         }
 
         private static string[] GetDiagnoses()

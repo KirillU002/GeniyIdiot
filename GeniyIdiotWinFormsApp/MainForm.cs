@@ -2,23 +2,26 @@ using GeniyIdiot.Common;
 
 namespace GeniyIdiotWinFormsApp
 {
-    public partial class mainForm : Form
+    public partial class MainForm : Form
     {
         private List<Question> questions;
         private Question currentQuestion;
         private int countQuestions;
         private User user;
         private int questionNumber;
-        public mainForm()
+        public MainForm()
         {
             InitializeComponent();
         }
 
         private void mainForm_Load(object sender, EventArgs e)
         {
+            var welcomeForm = new WelcomeForm();
+            welcomeForm.ShowDialog();
+
+            user = new User(welcomeForm.userNameTextBox.Text);
             questions = QuestionsStorage.GetAll();
             countQuestions = questions.Count;
-            user = new User("Íåèçâåñòíî");
             questionNumber = 0;
 
             ShowNextQuestion();
@@ -54,10 +57,27 @@ namespace GeniyIdiotWinFormsApp
             if (endGame)
             {
                 user.Diagnose = DiagnoseCalculator.Calculate(countQuestions, user.CountRightAnswers);
+                UserResultStorage.Save(user);
                 MessageBox.Show(user.Name + ", Âàø äèàãíîç: " + user.Diagnose);
                 return;
             }
             ShowNextQuestion();
+        }
+
+        private void âûõîäToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void ğåñòàğòToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void ïîêàçàòüÏğåäûäóùèåĞåçóëüòàòûToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var resultsForm = new ResultsForm();
+            resultsForm.ShowDialog();
         }
     }
 }
