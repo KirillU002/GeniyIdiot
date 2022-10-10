@@ -43,7 +43,7 @@
             // nextButton
             // 
             this.nextButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.nextButton.Location = new System.Drawing.Point(214, 243);
+            this.nextButton.Location = new System.Drawing.Point(208, 241);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(197, 50);
             this.nextButton.TabIndex = 0;
@@ -84,7 +84,7 @@
             this.файлToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(686, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(646, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -123,7 +123,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 353);
+            this.ClientSize = new System.Drawing.Size(646, 353);
             this.Controls.Add(this.userAnswerTextBox);
             this.Controls.Add(this.questionTextLabel);
             this.Controls.Add(this.questionNumberLabel);

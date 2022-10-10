@@ -8,77 +8,49 @@ class Programm
         {
             Console.WriteLine("Здравствуйте! Как Вас зовут?");
             var user = new User (CheckUserName(Console.ReadLine()));
+            var game = new Game (user);
 
-            var questions = QuestionsStorage.GetAll();
-            var countQuestions = questions.Count;
-
-            var random = new Random();
-
-            for (int i = 0; i < countQuestions; i++)
+            while (!game.End())
             {
-                Console.WriteLine("Вопрос №" + (i + 1));
-                var randomQuestionIndex = random.Next (0, questions.Count);
-                Console.WriteLine(questions[randomQuestionIndex].Text);
+                var currentQuestion = game.GetNextQuestion();
+
+                Console.WriteLine(game.GetQuestionNumberText());
+                Console.WriteLine(currentQuestion.Text);
 
                 var userAnswer = GetNumber();
-                var rightAnswer = questions[randomQuestionIndex].Answer;
 
-                if (userAnswer == rightAnswer)
-                    user.AcceptRightAnswer();
-
-                questions.RemoveAt(randomQuestionIndex);                
+                game.AcceptAnswer(userAnswer);
             }
+            var message = game.CalculateDiagnose();
 
-            Console.WriteLine("Количество правильных ответов: "+ user.CountRightAnswers);
+                Console.WriteLine(message);
 
-            user.Diagnose = DiagnoseCalculator.Calculate(countQuestions, user.CountRightAnswers);
-            Console.WriteLine(user.Name +", Ваш диагноз: "+ user.Diagnose);
+                var userChoice = GetUserShoice("Хотите посмотреть предыдущие результаты игры?");
+                if (userChoice)
+                {
+                    ShowUserResults();
+                }
 
-            UserResultStorage.Save(user);
+                userChoice = GetUserShoice("Хотите добавить новый вопрос?");
+                if (userChoice)
+                {
+                    AddNewQuestion();
+                }
 
-            var userChoice = GetUserShoice("Хотите посмотреть предыдущие результаты игры?");
-            if (userChoice)
-            {
-                ShowUserResults();
-            }
+                userChoice = GetUserShoice("Хотите удалить существующий вопрос?");
+                if (userChoice)
+                {
+                    RemoveQuestion();
+                }
 
-            userChoice = GetUserShoice("Хотите добавить новый вопрос?");
-            if (userChoice)
-            {
-                AddNewQuestion();
-            }
-
-            userChoice = GetUserShoice("Хотите удалить существующий вопрос?");
-            if (userChoice)
-            {
-                RemoveQuestion();
-            }
-
-            userChoice = GetUserShoice("Хотите начать сначала?");
-            if (userChoice == false)
-            {
-                break;
-            }
+                userChoice = GetUserShoice("Хотите начать сначала?");
+                if (userChoice == false)
+                {
+                    break;
+                }
         }
     }
-    static int GetNumber()
-    {
-        while (true)
-        {
-            try
-            {
-                return Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Введите число");
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("Введите число от -2*10^9 до 2*10^9");
-            }
-        }
-    }
+   
     static void RemoveQuestion()
     {
         Console.WriteLine("Введите номер удаляемого вопроса: ");
@@ -98,6 +70,15 @@ class Programm
 
         var removeQuestion = questions[removeQuestionNumber - 1];
         QuestionsStorage.Remove(removeQuestion);
+    }
+    static int GetNumber()
+    {
+        int number;
+        while (!InputValidator.TryParseToNumber(Console.ReadLine(), out number, out string errorMessage))
+        {
+            Console.WriteLine(errorMessage);
+        }
+        return number;
     }
     static void AddNewQuestion()
     {
