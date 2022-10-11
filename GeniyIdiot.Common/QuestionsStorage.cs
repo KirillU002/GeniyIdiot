@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace GeniyIdiot.Common
-{ 
-public class QuestionsStorage
 {
-        private static readonly string Path = "questions.txt";
+    public class QuestionsStorage
+{
+        private static readonly string Path = "questions.json";
         public static List<Question> GetAll()
     {
         var questions = new List<Question>();
@@ -13,18 +13,7 @@ public class QuestionsStorage
         if (FileProvider.Exists(Path))
         {
             var value = FileProvider.GetValue(Path);
-            var lines = value.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var line in lines)
-            {
-                var values = line.Split('#');
-                var text = values[0];
-                var answer = Convert.ToInt32(values[1]);
-
-                var question = new Question(text, answer);
-
-                questions.Add(question);
-            }
+                questions = JsonConvert.DeserializeObject<List<Question>>(value);
         }
         else
         {
@@ -41,16 +30,15 @@ public class QuestionsStorage
 
     public  static void SaveQuestions(List<Question> questions)
     {
-        foreach (var question in questions)
-        {
-            Add(question);
-        }
+        var jsonData = JsonConvert.SerializeObject(questions);
+            FileProvider.Replace(Path, jsonData);
     }
 
     public static void Add(Question newQuestion)
     {
-        var value = $"{newQuestion.Text}#{newQuestion.Answer}";
-        FileProvider.Append(Path, value);
+            var questions = GetAll();
+            questions.Add(newQuestion);
+            SaveQuestions(questions);
     }
 
     public static void Remove(Question removeQuestion)
@@ -64,8 +52,6 @@ public class QuestionsStorage
                 break;
             }
         }
-        question.Remove(removeQuestion);
-        FileProvider.Clear(Path);
         SaveQuestions(question);
     }
 }

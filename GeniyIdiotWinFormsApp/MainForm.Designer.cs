@@ -37,6 +37,10 @@
             this.показатьПредыдущиеРезультатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.рестартToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.вопросыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.добавитьНовыйВопросToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьВопросToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокВсехВопросовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,7 +85,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem});
+            this.файлToolStripMenuItem,
+            this.вопросыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(660, 24);
@@ -119,6 +124,36 @@
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
+            // вопросыToolStripMenuItem
+            // 
+            this.вопросыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.добавитьНовыйВопросToolStripMenuItem,
+            this.удалитьВопросToolStripMenuItem,
+            this.списокВсехВопросовToolStripMenuItem});
+            this.вопросыToolStripMenuItem.Name = "вопросыToolStripMenuItem";
+            this.вопросыToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.вопросыToolStripMenuItem.Text = "Вопросы";
+            // 
+            // добавитьНовыйВопросToolStripMenuItem
+            // 
+            this.добавитьНовыйВопросToolStripMenuItem.Name = "добавитьНовыйВопросToolStripMenuItem";
+            this.добавитьНовыйВопросToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.добавитьНовыйВопросToolStripMenuItem.Text = "Добавить новый вопрос";
+            this.добавитьНовыйВопросToolStripMenuItem.Click += new System.EventHandler(this.добавитьНовыйВопросToolStripMenuItem_Click);
+            // 
+            // удалитьВопросToolStripMenuItem
+            // 
+            this.удалитьВопросToolStripMenuItem.Name = "удалитьВопросToolStripMenuItem";
+            this.удалитьВопросToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.удалитьВопросToolStripMenuItem.Text = "Удалить вопрос";
+            // 
+            // списокВсехВопросовToolStripMenuItem
+            // 
+            this.списокВсехВопросовToolStripMenuItem.Name = "списокВсехВопросовToolStripMenuItem";
+            this.списокВсехВопросовToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.списокВсехВопросовToolStripMenuItem.Text = "Список всех вопросов";
+            this.списокВсехВопросовToolStripMenuItem.Click += new System.EventHandler(this.списокВсехВопросовToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -152,5 +187,9 @@
         private ToolStripMenuItem показатьПредыдущиеРезультатыToolStripMenuItem;
         private ToolStripMenuItem рестартToolStripMenuItem;
         private ToolStripMenuItem выходToolStripMenuItem;
+        private ToolStripMenuItem вопросыToolStripMenuItem;
+        private ToolStripMenuItem добавитьНовыйВопросToolStripMenuItem;
+        private ToolStripMenuItem удалитьВопросToolStripMenuItem;
+        private ToolStripMenuItem списокВсехВопросовToolStripMenuItem;
     }
 }

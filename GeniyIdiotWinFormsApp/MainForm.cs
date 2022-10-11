@@ -67,5 +67,17 @@ namespace GeniyIdiotWinFormsApp
             var resultsForm = new ResultsForm();
             resultsForm.ShowDialog();
         }
+
+        private void добавитьЌовый¬опросToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var newQuestionForm = new AddNewQuestionForm();
+            newQuestionForm.ShowDialog();
+        }
+
+        private void список¬сех¬опросовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var questionsListForm = new QuestionsListForm();
+            questionsListForm.ShowDialog();
+        }
     }
 }
