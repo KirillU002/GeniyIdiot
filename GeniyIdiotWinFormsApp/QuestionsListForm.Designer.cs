@@ -43,10 +43,12 @@
             this.Column1,
             this.Column2});
             this.questionsDataGridView.Location = new System.Drawing.Point(12, 12);
+            this.questionsDataGridView.MultiSelect = false;
             this.questionsDataGridView.Name = "questionsDataGridView";
             this.questionsDataGridView.RowTemplate.Height = 25;
             this.questionsDataGridView.Size = new System.Drawing.Size(636, 342);
             this.questionsDataGridView.TabIndex = 0;
+            this.questionsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionsDataGridView_CellContentClick);
             // 
             // Column1
             // 

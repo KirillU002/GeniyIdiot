@@ -54,5 +54,19 @@ namespace GeniyIdiot.Common
         }
         SaveQuestions(question);
     }
-}
+
+        public static void Remove(string questionText)
+        {
+            var question = GetAll();
+            for (int i = 0; i < question.Count; i++)
+            {
+                if (question[i].Text == questionText)
+                {
+                    question.RemoveAt(i);
+                    break;
+                }
+            }
+            SaveQuestions(question);
+        }
+    }
 }

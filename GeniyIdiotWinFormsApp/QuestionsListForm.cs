@@ -20,12 +20,24 @@ namespace GeniyIdiotWinFormsApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var row = questionsDataGridView.SelectedRows[0];
-            var questionText = row.Cells[0].Value;
+            var rows = questionsDataGridView.SelectedRows;
+            if (rows.Count == 0)
+            {
+                MessageBox.Show("Вы не выбрали строку");
+                return;
+            }
+
+            var questionText = rows[0].Cells[0].Value.ToString();
             if(questionText != null)
             {
-
+                QuestionsStorage.Remove(questionText);
             }
+            Close();
+        }
+
+        private void questionsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
